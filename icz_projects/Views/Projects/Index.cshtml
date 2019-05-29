@@ -7,9 +7,36 @@
 }
 
 
-<h1>Hello</h1>
-
-@foreach (Project p in ViewBag.Projects)
-{
-    <h3>@p.Name</h3>
-}
+<div class="card shadow">
+    <div class="card-header">
+        <h2>Projects</h2>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Customer</th>
+                    <th>Abbrievation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Project p in ViewBag.Projects)
+                {
+                    <tr>
+                        <td>@p.Id</td>
+                        <td>@p.Name</td>
+                        <td>@p.Customer</td>
+                        <td>@p.Abbreviation</td>
+                        <td>
+                            <a asp-action="Details" asp-controller="Projects" asp-route-id=@p.Id class="btn btn-primary">Show</a>
+                            <a asp-action="Delete" asp-controller="Projects" asp-route-id=@p.Id class="btn btn-warning">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

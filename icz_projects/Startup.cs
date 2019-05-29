@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using icz_projects.Contexts;
+using icz_projects.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +27,12 @@ namespace icz_projects
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton(new ProjectContext(Configuration.GetSection("XmlDataSources").GetSection("ProjectsContext").Value));
+
+            ProjectContext pctx = new ProjectContext(Configuration.GetSection("XmlDataSources").GetSection("ProjectContext").Value);
+            services.AddSingleton(pctx);
+
+            IProjectsRepository irp = new ProjectsRepository(pctx) as IProjectsRepository;
+            services.AddScoped<IProjectsRepository, ProjectsRepository>();
 
         }
 
@@ -50,7 +57,7 @@ namespace icz_projects
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Projects}/{action=Index}/{id?}");
             });
         }
     }

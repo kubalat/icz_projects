@@ -10,7 +10,6 @@ namespace icz_projects.Models
         [XmlAttributeAttribute("Id")]
         public string Id { get; set; }
 
-        [Required(ErrorMessage = "Date created is required")]
         [XmlElement("Name")]
         public string Name { get; set; }
 

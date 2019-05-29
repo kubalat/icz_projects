@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using icz_projects.Contexts;
 using icz_projects.Models;
 
 namespace icz_projects.Services
 {
     public class ProjectsRepository : IProjectsRepository
     {
-        private IDataSource _context;
-        IEnumerable<Project> _projects;
+        private ProjectContext _context;
 
-        public ProjectsRepository(IDataSource context)
+        public ProjectsRepository(ProjectContext context)
         {
             this._context = context;
-            this._projects = this._context.GetCollection("Projects") as IEnumerable<Project>;
         }
 
         public void DeleteProject(string id)
         {
-            IEnumerable<Project> foundedProject = this._projects.Select(project => project.Id == id) as IEnumerable<Project>;
+            IEnumerable<Project> foundedProject = this._context.Projects.Where(project => project.Id == id);
             if (foundedProject.Any())
             {
-                _context.SetCollection("Projects", this._projects.Select(project => project.Id != id));
-                _context.SaveChanges();
+                List<Project> tempList = this._context.Projects as List<Project>;
+                tempList.Remove(foundedProject.First());
+                //_context.SaveChanges();
             }
             else
             {
@@ -32,7 +32,7 @@ namespace icz_projects.Services
 
         public Project GetProject(string id)
         {
-            IEnumerable<Project> foundedProject = this._projects.Select(project => project.Id == id) as IEnumerable<Project>;
+            IEnumerable<Project> foundedProject = this._context.Projects.Where(project => project.Id.ToLower() == id.ToLower()) as IEnumerable<Project>;
             if (foundedProject.Any())
             {
                 return foundedProject.First();
@@ -46,26 +46,26 @@ namespace icz_projects.Services
 
         public IEnumerable<Project> GetProjects()
         {
-            return this._projects;
+            return this._context.Projects;
         }
 
         public void SaveProject(Project project)
         {
-            this._projects.Append(project);
+            this._context.Projects.Append(project);
             _context.SaveChanges();
         }
 
         public void UpdateProject(Project project)
         {
-            IEnumerable<Project> foundedProject = this._projects.Select(p => p.Id == project.Id) as IEnumerable<Project>;
+            IEnumerable<Project> foundedProject = this._context.Projects.Where(p => p.Id == project.Id) as IEnumerable<Project>;
             if (foundedProject.Any())
             {
                 Project p = foundedProject.First();
 
-                //TODO Is this working?
-                p = project;
+                List<Project> tempList = this._context.Projects as List<Project>;
+                tempList[tempList.IndexOf(p)] = project;
 
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
             else
             {

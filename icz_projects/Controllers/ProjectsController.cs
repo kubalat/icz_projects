@@ -25,10 +25,16 @@ namespace icz_projects.Controllers
             return View();
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         { 
-            ViewBag.Project = this._repository.GetProject(id.ToString());
-            return View();
+            return View(this._repository.GetProject(id));
+        }
+
+        public IActionResult Delete(string id)
+        {
+            this._repository.DeleteProject(id);
+            ViewBag.Projects = this._repository.GetProjects();
+            return View("Index");
         }
     }
 }
