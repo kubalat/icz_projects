@@ -13,6 +13,7 @@ namespace icz_projects.Services
         public ProjectsRepository(ProjectContext context)
         {
             this._context = context;
+
         }
 
         public void DeleteProject(string id)

@@ -7,36 +7,39 @@
 }
 
 
-<div class="card shadow">
-    <div class="card-header">
-        <h2>Projects</h2>
-    </div>
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Customer</th>
-                    <th>Abbrievation</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Project p in ViewBag.Projects)
-                {
+
+    <div class="card shadow">
+        <div class="card-header">
+            <h2>Projects</h2>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@p.Id</td>
-                        <td>@p.Name</td>
-                        <td>@p.Customer</td>
-                        <td>@p.Abbreviation</td>
-                        <td>
-                            <a asp-action="Details" asp-controller="Projects" asp-route-id=@p.Id class="btn btn-primary">Show</a>
-                            <a asp-action="Delete" asp-controller="Projects" asp-route-id=@p.Id class="btn btn-warning">Delete</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Customer</th>
+                        <th>Abbrievation</th>
+                        <th>Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (Project p in ViewBag.Projects)
+                    {
+                        <tr>
+                            <td>@p.Id</td>
+                            <td>@p.Name</td>
+                            <td>@p.Customer</td>
+                            <td>@p.Abbreviation</td>
+                            <td>
+                                <a asp-action="Details" asp-controller="Projects" asp-route-id=@p.Id class="btn btn-primary">Show</a>
+                                <form asp-controller="Projects" asp-action="Delete" asp-route-id=@p.Id method="Post">
+                                    <button type="submit" class="btn btn-warning">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>

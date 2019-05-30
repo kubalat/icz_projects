@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using icz_projects.Contexts;
 using icz_projects.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,11 +29,22 @@ namespace icz_projects
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                   options =>
+                   {
+                       options.LoginPath = new PathString("/login");
+                       options.AccessDeniedPath = new PathString("/auth/denied");
+                   });
+
             ProjectContext pctx = new ProjectContext(Configuration.GetSection("XmlDataSources").GetSection("ProjectContext").Value);
             services.AddSingleton(pctx);
 
             IProjectsRepository irp = new ProjectsRepository(pctx) as IProjectsRepository;
+            ILoginRepository ilp = new LoginRepository(Configuration.GetSection("Administration").GetSection("Password").Value, Configuration.GetSection("Administration").GetSection("ClaimName").Value) as ILoginRepository;
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
+            services.AddSingleton(ilp);
+
 
         }
 
@@ -49,6 +61,7 @@ namespace icz_projects
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

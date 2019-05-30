@@ -15,5 +15,6 @@
     <Folder Include="Services\" />
     <Folder Include="Datasources\" />
     <Folder Include="Contexts\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
 </Project>

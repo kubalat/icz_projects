@@ -17,22 +17,37 @@
         </environment>
     </head>
     <body>
-        <div class="container">
+        <div class="container pt-4">
 
 
             <header>
-                <h1>ICZ</h1>
+                <div class="row">
+                    <div class="col-6">
+                        <h1>ICZ</h1>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end align-items-center">
+                        <form asp-controller="Login" asp-action="Logout">
+                            <button class="btn btn-secondary" type="submit">Log out</button>
+                        </form>
+                    </div>
+                </div>
+
             </header>
+            @if (!string.IsNullOrWhiteSpace(ViewBag.Msg))
+            {
+                <div class="alert alert-info" role="alert">
+                    @ViewBag.Msg
+                </div>
+            }
+
 
             <partial name="_CookieConsentPartial" />
 
-            <div class="body-content">
-                @RenderBody()
-                <hr />
-                <footer>
-                    <p>&copy; 2019 - icz_projects</p>
-                </footer>
-            </div>
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2019 - ICZ</p>
+            </footer>
 
             <environment include="Development">
                 <script src="~/lib/jquery/dist/jquery.js"></script>
