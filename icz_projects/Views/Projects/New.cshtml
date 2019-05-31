@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model icz_projects.Models.Project
+@{
+}
+
+<form asp-controller="Projects" asp-action="Create" method="Post">
+    <div class="card shadow border-0">
+        <div class="card-header">
+            <h2>@Model.Name</h2>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="col-2">Name</label>
+                <input type="text" asp-for="Name" required="true" />
+            </div>
+            <div class="form-group">
+                <label class="col-2">Customer</label>
+                <input type="text" asp-for="Customer" required="true" />
+            </div>
+            <div class="form-group">
+                <label class="col-2">Abbreviation</label>
+                <input type="text" asp-for="Abbreviation" required="true" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save project</button>
+            </div>
+        </div>
+    </div>
+</form>

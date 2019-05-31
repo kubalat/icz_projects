@@ -10,6 +10,6 @@ namespace icz_projects.Services
         IEnumerable<Project> GetProjects();
         Project GetProject(string id);
         void DeleteProject(string id);
-        void UpdateProject(Project project);
+        void UpdateProject(string id, Project project);
     }
 }

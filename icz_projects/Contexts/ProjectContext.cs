@@ -11,6 +11,7 @@ namespace icz_projects.Contexts
 {
     public class ProjectContext : FileContext
     {
+        [XmlElement("Projects")]
         public IEnumerable<Project> Projects { get; set; }
         public string _timeStamp;
 
@@ -21,11 +22,25 @@ namespace icz_projects.Contexts
 
         public override void LoadData()
         {
-            List<Project> data = new List<Project>();
-            data.Add(new Project() { Id = "Proj1", Name = "Name", Abbreviation = "Abbr", Customer = "Cust" });
-            data.Add(new Project() { Id = "Proj3", Name = "Name", Abbreviation = "Abbr", Customer = "Cust" });
-            data.Add(new Project() { Id = "Proj2", Name = "Name", Abbreviation = "Abbr", Customer = "Cust" });
-            this.Projects = data as IEnumerable<Project>;
+            if (File.Exists(this._filePath))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
+
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Encoding = new UnicodeEncoding(true, true);
+                settings.Indent = true;
+                //settings.OmitXmlDeclaration = true;  
+
+                using (Stream reader = new FileStream(this._filePath, FileMode.Open))
+                {
+                    this.Projects = serializer.Deserialize(reader) as IEnumerable<Project>;
+                }
+            }
+            else
+            {
+                List<Project> data = new List<Project>();
+                this.Projects = data as IEnumerable<Project>;
+            }
         }
 
         public override void ReloadData()
@@ -38,7 +53,7 @@ namespace icz_projects.Contexts
 
         public override void SaveChanges()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Project));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Encoding = new UnicodeEncoding(true, true);
@@ -47,25 +62,8 @@ namespace icz_projects.Contexts
 
             System.IO.FileStream file = System.IO.File.Create(this._filePath);
 
-            serializer.Serialize(file, this.Projects);
+            serializer.Serialize(file, this.Projects as List<Project>);
             file.Close();
-        }
-
-
-        private void _deserializeObject()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Encoding = new UnicodeEncoding(true, true);
-            settings.Indent = true;
-            //settings.OmitXmlDeclaration = true;  
-
-            using (Stream reader = new FileStream(this._filePath, FileMode.Open))
-            {
-                this.Projects = serializer.Deserialize(reader) as IEnumerable<Project>;
-            }
-            
         }
     }
 }

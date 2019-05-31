@@ -9,11 +9,9 @@ namespace icz_projects.Services
     public class ProjectsRepository : IProjectsRepository
     {
         private ProjectContext _context;
-
         public ProjectsRepository(ProjectContext context)
         {
             this._context = context;
-
         }
 
         public void DeleteProject(string id)
@@ -52,21 +50,35 @@ namespace icz_projects.Services
 
         public void SaveProject(Project project)
         {
-            this._context.Projects.Append(project);
+            List<string> projectsIdsString = this._context.Projects.Select(pr => pr.Id).ToList();
+            List<int> projectIds = new List<int>();
+
+            foreach (string idString in projectsIdsString)
+            {
+                projectIds.Add(Convert.ToInt32(idString.Replace("proj", "")));
+            }
+
+            IEnumerable<int> temp = projectIds as IEnumerable<int>;
+            int nextId = temp.Max() + 1;
+            project.Id = "proj" + nextId.ToString();
+
+            List<Project> proj = this._context.Projects as List<Project>;
+            proj.Add(project);
             _context.SaveChanges();
         }
 
-        public void UpdateProject(Project project)
+        public void UpdateProject(string id, Project project)
         {
-            IEnumerable<Project> foundedProject = this._context.Projects.Where(p => p.Id == project.Id) as IEnumerable<Project>;
+            IEnumerable<Project> foundedProject = this._context.Projects.Where(p => p.Id == id) as IEnumerable<Project>;
             if (foundedProject.Any())
             {
                 Project p = foundedProject.First();
 
-                List<Project> tempList = this._context.Projects as List<Project>;
-                tempList[tempList.IndexOf(p)] = project;
+                p.Abbreviation = project.Abbreviation;
+                p.Customer = project.Customer;
+                p.Name = project.Name;
 
-                //_context.SaveChanges();
+                _context.SaveChanges();
             }
             else
             {

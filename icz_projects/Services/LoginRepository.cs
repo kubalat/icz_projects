@@ -48,6 +48,7 @@ namespace icz_projects.Services
                 var userPrincipal = new ClaimsPrincipal(userIdentity);
 
 
+
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     userPrincipal,
                     new AuthenticationProperties

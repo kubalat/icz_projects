@@ -15,10 +15,13 @@ namespace icz_projects.Controllers
     public class ProjectsController : Controller
     { 
         private readonly IProjectsRepository _repository;
+        private readonly ILogger _logger;
 
-        public ProjectsController(IProjectsRepository repository)
+        public ProjectsController(IProjectsRepository repository, ILogger logger)
         {
             this._repository = repository;
+            this._logger = logger;
+
         }
 
         public IActionResult Index()
@@ -29,13 +32,15 @@ namespace icz_projects.Controllers
                 ViewBag.Msg = msgToShow;
             }
 
+            this._logger.WriteLog(HttpContext, "Projects - Index - Get projects");
             ViewBag.Projects = this._repository.GetProjects();
             return View();
         }
 
         [HttpGet]
         public IActionResult Details(string id)
-        { 
+        {
+            this._logger.WriteLog(HttpContext, "Projects - Details - Get project: " + id);
             return View(this._repository.GetProject(id));
         }
 
@@ -43,8 +48,42 @@ namespace icz_projects.Controllers
         public IActionResult Delete(string id)
         {
             this._repository.DeleteProject(id);
-            ViewBag.Projects = this._repository.GetProjects();
             TempData["ErrorMessage"] = "Project was deleted.";
+            this._logger.WriteLog(HttpContext, "Projects - Delete - Delete project: " + id);
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult New()
+        {
+            this._logger.WriteLog(HttpContext, "Projects - New - New project");
+            return View(new Project());
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            this._logger.WriteLog(HttpContext, "Projects - Edit - Edit project: " + id);
+            return View(this._repository.GetProject(id));
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(Project project)
+        {
+            this._repository.SaveProject(project);
+            TempData["ErrorMessage"] = "Project was created.";
+            this._logger.WriteLog(HttpContext, "Projects - Create - Create project");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Update(string id, Project project)
+        {
+            this._repository.UpdateProject(id, project);
+            TempData["ErrorMessage"] = "Project was updated.";
+            this._logger.WriteLog(HttpContext, "Projects - Update - Update project: " + id);
             return RedirectToAction("Index");
         }
     }

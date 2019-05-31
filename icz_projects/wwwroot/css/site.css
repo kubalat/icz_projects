@@ -4,7 +4,7 @@ for details on configuring this project to bundle and minify static web assets. 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body {
-    background-color: #f3f3f3;
+    background-color: #ededed !important;
 }
 
 .body-content {
@@ -36,6 +36,18 @@ for details on configuring this project to bundle and minify static web assets. 
     vertical-align: baseline;
 }
 
+.table-col-15 {
+    width: 15%;
+}
+
+.table-col-40 {
+    width: 40%;
+}
+
+td > form {
+    display: inline;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -43,3 +55,4 @@ for details on configuring this project to bundle and minify static web assets. 
         display: none;
     }
 }
+

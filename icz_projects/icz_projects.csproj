@@ -16,5 +16,10 @@
     <Folder Include="Datasources\" />
     <Folder Include="Contexts\" />
     <Folder Include="Views\Login\" />
+    <Folder Include="Data\" />
+    <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Data\projects.xml" />
   </ItemGroup>
 </Project>

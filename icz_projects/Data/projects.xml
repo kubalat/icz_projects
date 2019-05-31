@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="windows-1250"?>
-<ArrayOfProject>
-    <Project id="1">
-        <name>Name</name>
-        <abbreviation>abbr</abbreviation>
-        <customer>customer</customer>
-    </Project>
+<?xml version="1.0"?>
+<ArrayOfProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Project Id="proj5">
+    <Name>tttjjddd</Name>
+    <Abbreviation>gggkkp</Abbreviation>
+    <Customer>ggg</Customer>
+  </Project>
+  <Project Id="proj6">
+    <Name>ddd</Name>
+    <Abbreviation>iiii</Abbreviation>
+    <Customer>dd</Customer>
+  </Project>
+  <Project Id="proj7">
+    <Name>ddd</Name>
+    <Abbreviation>ddddkok</Abbreviation>
+    <Customer>ddd</Customer>
+  </Project>
 </ArrayOfProject>

@@ -16,20 +16,24 @@ namespace icz_projects.Controllers
     public class LoginController : Controller
     {
         private ILoginRepository _repository;
-        public LoginController(ILoginRepository repository)
+        private ILogger _logger;
+        public LoginController(ILoginRepository repository, ILogger logger)
         {
             this._repository = repository;
+            this._logger = logger;
         }
         // GET: /<controller>/
         public IActionResult Index()
         {
             if (this._repository.IsLogged(HttpContext))
             {
+                this._logger.WriteLog(HttpContext, "Login - Index - User is already logged. Redirecting.");
                 TempData["ErrorMessage"] = "You are already logged in.";
                 return RedirectToAction("Index", "Projects");
             }
             else
             {
+                this._logger.WriteLog(HttpContext, "Login - Index - Login form");
                 string msgToShow = TempData["ErrorMessage"] as string;
                 if (!string.IsNullOrWhiteSpace(msgToShow))
                 {
@@ -44,6 +48,7 @@ namespace icz_projects.Controllers
         {
             if (this._repository.IsLogged(HttpContext))
             {
+                this._logger.WriteLog(HttpContext, "Login - Index - User is already logged. Redirecting.");
                 TempData["ErrorMessage"] = "You are already logged in.";
                 return RedirectToAction("Index", "Projects");
             }
@@ -52,11 +57,13 @@ namespace icz_projects.Controllers
 
             if (await this._repository.Login(password, HttpContext))
             {
+                this._logger.WriteLog(HttpContext, "Login - Login - Login succesful.");
                 TempData["ErrorMessage"] = "Login successful.";
                 return RedirectToAction("Index", "Projects");
             }
             else
             {
+                this._logger.WriteLog(HttpContext, "Login - Login - Wrong password.");
                 TempData["ErrorMessage"] = "Wrong password.";
                 return RedirectToAction("Index", "Login");
             }
@@ -67,11 +74,13 @@ namespace icz_projects.Controllers
         {
             if (await this._repository.Logout(HttpContext))
             {
+                this._logger.WriteLog(HttpContext, "Login - Logout - Logout successful.");
                 TempData["ErrorMessage"] = "Logout successful.";
                 return RedirectToAction("Index", "Login");
             }
             else
             {
+                this._logger.WriteLog(HttpContext, "Login - Logout - Error while logouting.");
                 TempData["ErrorMessage"] = "Error while logouting.";
                 return RedirectToAction("Index", "Login");
             }

@@ -1,0 +1,6 @@
+05/31/2019 15:15:02 - ::1 - Login - Index - Login form
+05/31/2019 15:15:14 - ::1 - Login - Login - Login succesful.
+05/31/2019 15:15:14 - ::1 - Projects - Index - Get projects
+05/31/2019 15:15:24 - ::1 - Projects - Edit - Edit project: proj5
+05/31/2019 15:15:28 - ::1 - Projects - Update - Update project: proj5
+05/31/2019 15:15:28 - ::1 - Projects - Index - Get projects

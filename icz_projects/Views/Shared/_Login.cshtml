@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - icz_projects</title>
+    <title>ICZ Projects - Login</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css" />
@@ -20,7 +20,7 @@
     <div class="container pt-4">
         @if (!string.IsNullOrWhiteSpace(ViewBag.Msg))
     {
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info shadow border-0" role="alert">
             @ViewBag.Msg
         </div>
 }

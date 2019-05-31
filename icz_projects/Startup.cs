@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,6 +35,7 @@ namespace icz_projects
                    options =>
                    {
                        options.LoginPath = new PathString("/login");
+                       //TODO
                        options.AccessDeniedPath = new PathString("/auth/denied");
                    });
 
@@ -42,10 +44,12 @@ namespace icz_projects
 
             IProjectsRepository irp = new ProjectsRepository(pctx) as IProjectsRepository;
             ILoginRepository ilp = new LoginRepository(Configuration.GetSection("Administration").GetSection("Password").Value, Configuration.GetSection("Administration").GetSection("ClaimName").Value) as ILoginRepository;
+
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
             services.AddSingleton(ilp);
 
-
+            ILogger logger = new Logger(Configuration.GetSection("LogFilePath").Value) as ILogger;
+            services.AddSingleton(logger);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
