@@ -9,16 +9,27 @@ namespace icz_projects.Services
         private readonly string _filePath;
         public Logger(string filePath)
         {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentNullException(nameof(filePath), "Parameter is null");
+            }
             this._filePath = filePath;
         }
 
         public void WriteLog(HttpContext context, string message)
         {
-            using (StreamWriter w = File.AppendText(this._filePath))
+            try
             {
-                w.WriteLine(String.Format("{0} - {1} - {2}", DateTime.Now.ToString(), context.Connection.RemoteIpAddress.ToString(), message));
-
+                using (StreamWriter w = File.AppendText(this._filePath))
+                {
+                    w.WriteLine(String.Format("{0} - {1} - {2}", DateTime.Now.ToString(), context.Connection.RemoteIpAddress.ToString(), message));
+                }
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
         }
     }
 }

@@ -20,3 +20,28 @@
 06/01/2019 09:19:50 - ::1 - Projects - Details - Get project: proj5
 06/01/2019 09:19:52 - ::1 - Projects - Details - Get project: proj54
 06/01/2019 09:20:08 - ::1 - Projects - Details - Get project: proj54
+06/01/2019 09:35:12 - ::1 - Login - Index - Login form
+06/01/2019 09:35:15 - ::1 - Login - Login - Login succesful.
+06/01/2019 09:35:15 - ::1 - Projects - Index - Get projects
+06/01/2019 09:35:19 - ::1 - Projects - Details - Get project: proj5
+06/01/2019 09:35:21 - ::1 - Projects - Index - Get projects
+06/01/2019 09:35:33 - ::1 - Projects - Index - Get projects
+06/01/2019 09:35:36 - ::1 - Projects - Delete - Delete project: proj5
+06/01/2019 09:35:36 - ::1 - Projects - Index - Get projects
+06/01/2019 09:35:38 - ::1 - Projects - Delete - Delete project: proj6
+06/01/2019 09:35:38 - ::1 - Projects - Index - Get projects
+06/01/2019 09:35:38 - ::1 - Projects - Delete - Delete project: proj7
+06/01/2019 09:35:38 - ::1 - Projects - Index - Get projects
+06/01/2019 09:35:40 - ::1 - Projects - New - New project
+06/01/2019 09:37:55 - ::1 - Projects - Index - Get projects
+06/01/2019 09:37:58 - ::1 - Projects - Delete - Delete project: proj5
+06/01/2019 09:37:58 - ::1 - Projects - Index - Get projects
+06/01/2019 09:37:59 - ::1 - Projects - Delete - Delete project: proj6
+06/01/2019 09:37:59 - ::1 - Projects - Index - Get projects
+06/01/2019 09:38:00 - ::1 - Projects - Delete - Delete project: proj7
+06/01/2019 09:38:00 - ::1 - Projects - Index - Get projects
+06/01/2019 09:38:02 - ::1 - Projects - New - New project
+06/01/2019 09:38:06 - ::1 - Projects - Create - Create project
+06/01/2019 09:38:06 - ::1 - Projects - Index - Get projects
+06/01/2019 09:38:11 - ::1 - Projects - Details - Get project: proj1
+06/01/2019 09:38:15 - ::1 - Projects - Index - Get projects

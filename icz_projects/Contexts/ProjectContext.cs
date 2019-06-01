@@ -17,45 +17,70 @@ namespace icz_projects.Contexts
 
         public ProjectContext(string filePath) : base(filePath)
         {
-            this.LoadData();
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentNullException(nameof(filePath), "Parameter was null");
+            }
+            try
+            {
+                this.LoadData();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public override void LoadData()
         {
-            if (File.Exists(this._filePath))
+            try
+            {
+                if (File.Exists(this._filePath))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
+
+                    XmlWriterSettings settings = new XmlWriterSettings();
+                    settings.Encoding = new UnicodeEncoding(true, true);
+                    settings.Indent = true;
+                    //settings.OmitXmlDeclaration = true;  
+
+                    using (Stream reader = new FileStream(this._filePath, FileMode.Open))
+                    {
+                        this.Projects = serializer.Deserialize(reader) as IEnumerable<Project>;
+                    }
+                }
+                else
+                {
+                    List<Project> data = new List<Project>();
+                    this.Projects = data as IEnumerable<Project>;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
+        }
+
+        public override void SaveChanges()
+        {
+            try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
 
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Encoding = new UnicodeEncoding(true, true);
                 settings.Indent = true;
-                //settings.OmitXmlDeclaration = true;  
 
-                using (Stream reader = new FileStream(this._filePath, FileMode.Open))
+                using (FileStream file = File.Create(this._filePath))
                 {
-                    this.Projects = serializer.Deserialize(reader) as IEnumerable<Project>;
+                    serializer.Serialize(file, this.Projects as List<Project>);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                List<Project> data = new List<Project>();
-                this.Projects = data as IEnumerable<Project>;
+                throw new Exception(ex.Message, ex);
             }
-        }
-
-        public override void SaveChanges()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Encoding = new UnicodeEncoding(true, true);
-            settings.Indent = true;
-            //settings.OmitXmlDeclaration = true;  
-
-            System.IO.FileStream file = System.IO.File.Create(this._filePath);
-
-            serializer.Serialize(file, this.Projects as List<Project>);
-            file.Close();
         }
     }
 }

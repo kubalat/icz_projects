@@ -26,33 +26,51 @@ namespace icz_projects.Controllers
 
         public IActionResult Index()
         {
+
             string msgToShow = TempData["ErrorMessage"] as string;
             if (!string.IsNullOrWhiteSpace(msgToShow))
             {
                 ViewBag.Msg = msgToShow;
             }
 
-            this._logger.WriteLog(HttpContext, "Projects - Index - Get projects");
-            ViewBag.Projects = this._repository.GetProjects();
-            
-            return View();
+            try
+            {
+                this._logger.WriteLog(HttpContext, "Projects - Index - Get projects");
+                ViewBag.Projects = this._repository.GetProjects();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         [HttpGet]
         public IActionResult Details(string id)
         {
-            this._logger.WriteLog(HttpContext, "Projects - Details - Get project: " + id);
-            Project p = this._repository.GetProject(id);
-
-            if (p == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
-                return NotFound("Project doesnt exist.");
-            }
-            else
-            {
-                return View(p);
+                return BadRequest("Parameter id is null");
             }
 
+            try
+            {
+                this._logger.WriteLog(HttpContext, "Projects - Details - Get project: " + id);
+                Project p = this._repository.GetProject(id);
+
+                if (p == null)
+                {
+                    return NotFound("Project not found.");
+                }
+                else
+                {
+                    return View(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO
+            }
         }
 
         [HttpPost]
