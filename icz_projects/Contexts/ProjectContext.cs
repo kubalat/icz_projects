@@ -43,14 +43,6 @@ namespace icz_projects.Contexts
             }
         }
 
-        public override void ReloadData()
-        {
-            if (this._timeStamp != "")
-            {
-                this.LoadData();
-            }
-        }
-
         public override void SaveChanges()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));

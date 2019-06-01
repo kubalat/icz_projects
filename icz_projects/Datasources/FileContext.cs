@@ -1,7 +1,7 @@
 ﻿using System;
 namespace icz_projects.Datasources
 {
-    public abstract class FileContext : ISourcable
+    public abstract class FileContext : IDataSoruce
     {
         protected string _filePath;
         public FileContext(string filePath)
@@ -10,7 +10,6 @@ namespace icz_projects.Datasources
         }
 
         public abstract void LoadData();
-        public abstract void ReloadData();
         public abstract void SaveChanges();
     }
 }

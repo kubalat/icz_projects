@@ -4,3 +4,19 @@
 05/31/2019 15:15:24 - ::1 - Projects - Edit - Edit project: proj5
 05/31/2019 15:15:28 - ::1 - Projects - Update - Update project: proj5
 05/31/2019 15:15:28 - ::1 - Projects - Index - Get projects
+06/01/2019 09:15:23 - ::1 - Login - Index - Login form
+06/01/2019 09:15:26 - ::1 - Login - Index - Login form
+06/01/2019 09:15:26 - ::1 - Login - Index - Login form
+06/01/2019 09:15:40 - ::1 - Login - Index - Login form
+06/01/2019 09:15:40 - ::1 - Login - Index - Login form
+06/01/2019 09:15:43 - ::1 - Login - Login - Login succesful.
+06/01/2019 09:15:43 - ::1 - Projects - Index - Get projects
+06/01/2019 09:15:49 - ::1 - Projects - Details - Get project: proj5
+06/01/2019 09:15:51 - ::1 - Projects - Details - Get project: proj55
+06/01/2019 09:18:45 - ::1 - Projects - Index - Get projects
+06/01/2019 09:18:48 - ::1 - Projects - Details - Get project: proj5
+06/01/2019 09:18:51 - ::1 - Projects - Details - Get project: proj54
+06/01/2019 09:19:48 - ::1 - Projects - Index - Get projects
+06/01/2019 09:19:50 - ::1 - Projects - Details - Get project: proj5
+06/01/2019 09:19:52 - ::1 - Projects - Details - Get project: proj54
+06/01/2019 09:20:08 - ::1 - Projects - Details - Get project: proj54

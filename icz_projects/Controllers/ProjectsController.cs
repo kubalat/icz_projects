@@ -34,6 +34,7 @@ namespace icz_projects.Controllers
 
             this._logger.WriteLog(HttpContext, "Projects - Index - Get projects");
             ViewBag.Projects = this._repository.GetProjects();
+            
             return View();
         }
 
@@ -41,7 +42,17 @@ namespace icz_projects.Controllers
         public IActionResult Details(string id)
         {
             this._logger.WriteLog(HttpContext, "Projects - Details - Get project: " + id);
-            return View(this._repository.GetProject(id));
+            Project p = this._repository.GetProject(id);
+
+            if (p == null)
+            {
+                return NotFound("Project doesnt exist.");
+            }
+            else
+            {
+                return View(p);
+            }
+
         }
 
         [HttpPost]

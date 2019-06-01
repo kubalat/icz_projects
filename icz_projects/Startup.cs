@@ -35,8 +35,6 @@ namespace icz_projects
                    options =>
                    {
                        options.LoginPath = new PathString("/login");
-                       //TODO
-                       options.AccessDeniedPath = new PathString("/auth/denied");
                    });
 
             ProjectContext pctx = new ProjectContext(Configuration.GetSection("XmlDataSources").GetSection("ProjectContext").Value);
@@ -64,7 +62,6 @@ namespace icz_projects
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
