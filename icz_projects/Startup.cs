@@ -30,6 +30,7 @@ namespace icz_projects
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //Add cookie authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
                    options =>
@@ -37,15 +38,19 @@ namespace icz_projects
                        options.LoginPath = new PathString("/login");
                    });
 
+            //Set project context
             ProjectContext pctx = new ProjectContext(Configuration.GetSection("XmlDataSources").GetSection("ProjectContext").Value);
             services.AddSingleton(pctx);
 
+            //Set projects repository
             IProjectsRepository irp = new ProjectsRepository(pctx) as IProjectsRepository;
-            ILoginRepository ilp = new LoginRepository(Configuration.GetSection("Administration").GetSection("Password").Value, Configuration.GetSection("Administration").GetSection("ClaimName").Value) as ILoginRepository;
-
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
+
+            //Set login repository
+            ILoginRepository ilp = new LoginRepository(Configuration.GetSection("Administration").GetSection("Password").Value, Configuration.GetSection("Administration").GetSection("ClaimName").Value) as ILoginRepository;
             services.AddSingleton(ilp);
 
+            //Set logger repository
             ILogger logger = new Logger(Configuration.GetSection("LogFilePath").Value) as ILogger;
             services.AddSingleton(logger);
         }
@@ -62,6 +67,8 @@ namespace icz_projects
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            //Enabe authentication
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

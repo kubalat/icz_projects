@@ -18,6 +18,10 @@ namespace icz_projects.Services
             this._context = context;
         }
 
+        /// <summary>
+        /// Deletes the project with specified id from the context.
+        /// </summary>
+        /// <param name="id">Id of the project</param>
         public void DeleteProject(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -41,11 +45,16 @@ namespace icz_projects.Services
             }
             catch (Exception ex)
             {
-
+                throw new Exception(ex.Message, ex);
             }
 
         }
 
+        /// <summary>
+        /// Gets project with specified id from the context
+        /// </summary>
+        /// <returns>Project object</returns>
+        /// <param name="id">Id of the project</param>
         public Project GetProject(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -61,8 +70,7 @@ namespace icz_projects.Services
                 }
                 else
                 {
-                    //throw new ArgumentNullException(nameof(Project), "Project not found.");
-                    return null;
+                    throw new ArgumentNullException(nameof(Project), "Project not found.");
                 }
             }
             catch (Exception ex)
@@ -72,6 +80,40 @@ namespace icz_projects.Services
 
         }
 
+        /// <summary>
+        /// Exists the project with specified id in th context.
+        /// </summary>
+        /// <returns><c>true</c>, if project exists, <c>false</c> otherwise.</returns>
+        /// <param name="id">Id of the project.</param>
+        public bool ExistsProject(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentNullException(nameof(id), "Parameter is null");
+            }
+            try
+            {
+                IEnumerable<Project> foundedProject = this._context.Projects.Where(project => project.Id.ToLower() == id.ToLower()) as IEnumerable<Project>;
+                if (foundedProject.Any())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
+        }
+
+        /// <summary>
+        /// Gets all projects from the context.
+        /// </summary>
+        /// <returns>Array with all projects</returns>
         public IEnumerable<Project> GetProjects()
         {
             IEnumerable<Project> projects = this._context.Projects;
@@ -82,6 +124,10 @@ namespace icz_projects.Services
             return projects;
         }
 
+        /// <summary>
+        /// Saves project to the context
+        /// </summary>
+        /// <param name="project">New Project object</param>
         public void SaveProject(Project project)
         {
             if (project == null)
@@ -110,7 +156,7 @@ namespace icz_projects.Services
 
 
 
-
+                //Add new id
                 project.Id = "proj" + nextId.ToString();
 
                 List<Project> proj = this._context.Projects as List<Project>;
@@ -124,6 +170,11 @@ namespace icz_projects.Services
 
         }
 
+        /// <summary>
+        /// Updates the project with specified id from the context.
+        /// </summary>
+        /// <param name="id">Id of the project.</param>
+        /// <param name="project">Project object with updated metadata</param>
         public void UpdateProject(string id, Project project)
         {
             if (project == null)

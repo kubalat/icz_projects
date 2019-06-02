@@ -11,10 +11,12 @@ namespace icz_projects.Contexts
 {
     public class ProjectContext : FileContext
     {
-        [XmlElement("Projects")]
         public IEnumerable<Project> Projects { get; set; }
-        public string _timeStamp;
 
+        /// <summary>
+        /// Initializes a new instance of the this class.
+        /// </summary>
+        /// <param name="filePath">File path to datasource</param>
         public ProjectContext(string filePath) : base(filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -31,13 +33,16 @@ namespace icz_projects.Contexts
             }
         }
 
+        /// <summary>
+        /// Loads the data from file to the array.
+        /// </summary>
         public override void LoadData()
         {
             try
             {
                 if (File.Exists(this._filePath))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Project>), new XmlRootAttribute("Projects"));
 
                     XmlWriterSettings settings = new XmlWriterSettings();
                     settings.Encoding = new UnicodeEncoding(true, true);
@@ -62,11 +67,14 @@ namespace icz_projects.Contexts
 
         }
 
+        /// <summary>
+        /// Saves the changes from array to file.
+        /// </summary>
         public override void SaveChanges()
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Project>));
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Project>), new XmlRootAttribute("Projects"));
 
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Encoding = new UnicodeEncoding(true, true);

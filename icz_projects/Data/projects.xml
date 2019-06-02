@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<ArrayOfProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Projects xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project Id="proj1">
-    <Name>ttt</Name>
-    <Abbreviation>k</Abbreviation>
-    <Customer>ggg</Customer>
+    <Name>c</Name>
+    <Abbreviation>c</Abbreviation>
+    <Customer>c</Customer>
   </Project>
-</ArrayOfProject>
+</Projects>

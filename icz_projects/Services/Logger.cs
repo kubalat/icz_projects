@@ -7,6 +7,11 @@ namespace icz_projects.Services
     public class Logger : ILogger
     {
         private readonly string _filePath;
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="filePath">File path to the log file</param>
         public Logger(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -16,6 +21,11 @@ namespace icz_projects.Services
             this._filePath = filePath;
         }
 
+        /// <summary>
+        /// Writes the log to the file.
+        /// </summary>
+        /// <param name="context">HttpContext of request</param>
+        /// <param name="message">Message to log</param>
         public void WriteLog(HttpContext context, string message)
         {
             try

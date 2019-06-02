@@ -45,3 +45,13 @@
 06/01/2019 09:38:06 - ::1 - Projects - Index - Get projects
 06/01/2019 09:38:11 - ::1 - Projects - Details - Get project: proj1
 06/01/2019 09:38:15 - ::1 - Projects - Index - Get projects
+06/01/2019 15:02:22 - ::1 - Login - Index - Login form
+06/01/2019 15:02:26 - ::1 - Login - Login - Login succesful.
+06/01/2019 15:02:27 - ::1 - Projects - Index - Get projects
+06/01/2019 15:02:36 - ::1 - Projects - Details - Get project: proj1
+06/02/2019 15:42:56 - ::1 - Login - Index - Login form
+06/02/2019 15:43:00 - ::1 - Login - Login - Login succesful.
+06/02/2019 15:43:00 - ::1 - Projects - Index - Get projects
+06/02/2019 15:43:03 - ::1 - Projects - New - New project
+06/02/2019 15:43:06 - ::1 - Projects - Create - Create project
+06/02/2019 15:43:06 - ::1 - Projects - Index - Get projects

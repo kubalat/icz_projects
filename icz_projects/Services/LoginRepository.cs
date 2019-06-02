@@ -19,6 +19,11 @@ namespace icz_projects.Services
         private readonly string _hashedPassword;
         private readonly string _claimIdentifier;
 
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="hashedPassword">Hashed password for login to the system</param>
+        /// <param name="claimIdentifier">Claim identifier for cookie</param>
         public LoginRepository(string hashedPassword, string claimIdentifier)
         {
             if (string.IsNullOrWhiteSpace(hashedPassword))
@@ -34,6 +39,13 @@ namespace icz_projects.Services
             this._hashedPassword = hashedPassword;
             this._claimIdentifier = claimIdentifier;
         }
+
+        /// <summary>
+        /// Login to the system.
+        /// </summary>
+        /// <returns><c>true</c>, if login was successful, <c>false</c> otherwise.</returns>
+        /// <param name="password">Password for login to the system</param>
+        /// <param name="context">HttpContext of the request</param>
         public async Task<bool> Login(string password, HttpContext context)
         {
             if (string.IsNullOrWhiteSpace(password))
@@ -92,6 +104,11 @@ namespace icz_projects.Services
 
         }
 
+        /// <summary>
+        /// Logout from the system
+        /// </summary>
+        /// <returns><c>true</c>, if logout was successful, <c>false</c> otherwise.</returns>
+        /// <param name="context">HttpContext of the request</param>
         public async Task<bool> Logout(HttpContext context)
         {
             if (context == null)
@@ -103,6 +120,11 @@ namespace icz_projects.Services
             return true;
         }
 
+        /// <summary>
+        /// Check if already logged in system.
+        /// </summary>
+        /// <returns><c>true</c>, if logged, <c>false</c> otherwise.</returns>
+        /// <param name="context">HttpContext of the request</param>
         public bool IsLogged(HttpContext context)
         {
             if (context == null)
