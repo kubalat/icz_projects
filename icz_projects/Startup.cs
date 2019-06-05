@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using icz_projects.Contexts;
 using icz_projects.Services;
@@ -29,6 +30,9 @@ namespace icz_projects
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Add encoding compatibility
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //Add cookie authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

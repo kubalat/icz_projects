@@ -45,9 +45,8 @@ namespace icz_projects.Contexts
                     XmlSerializer serializer = new XmlSerializer(typeof(List<Project>), new XmlRootAttribute("Projects"));
 
                     XmlWriterSettings settings = new XmlWriterSettings();
-                    settings.Encoding = new UnicodeEncoding(true, true);
+                    settings.Encoding = Encoding.GetEncoding(1250);
                     settings.Indent = true;
-                    //settings.OmitXmlDeclaration = true;  
 
                     using (Stream reader = new FileStream(this._filePath, FileMode.Open))
                     {
@@ -77,7 +76,7 @@ namespace icz_projects.Contexts
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Project>), new XmlRootAttribute("Projects"));
 
                 XmlWriterSettings settings = new XmlWriterSettings();
-                settings.Encoding = new UnicodeEncoding(true, true);
+                settings.Encoding = Encoding.GetEncoding(1250);
                 settings.Indent = true;
 
                 using (FileStream file = File.Create(this._filePath))
