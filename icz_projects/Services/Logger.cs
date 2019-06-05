@@ -30,6 +30,10 @@ namespace icz_projects.Services
         {
             try
             {
+                //Create directory
+                Directory.CreateDirectory(Path.GetDirectoryName(this._filePath));
+
+                //Write log
                 using (StreamWriter w = File.AppendText(this._filePath))
                 {
                     w.WriteLine(String.Format("{0} - {1} - {2}", DateTime.Now.ToString(), context.Connection.RemoteIpAddress.ToString(), message));

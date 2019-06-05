@@ -40,6 +40,9 @@ namespace icz_projects.Contexts
         {
             try
             {
+                //Create directory
+                Directory.CreateDirectory(Path.GetDirectoryName(this._filePath));
+
                 if (File.Exists(this._filePath))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<Project>), new XmlRootAttribute("Projects"));
